@@ -38,9 +38,11 @@ To compute the left singular vectors, follow the same principle as above but wit
 $$C = AA^T = (USV^T)(USV^T)^T = USV^T V S^T U^T = US S^T U^T = U S^2 U^T$$
 Because $C$ can be diagonalized, we find $AA^T = UDU^T$ with $U$ an orthonormal basis of eigenvectors, representing left singular vectors.
 
-The matrix $S$ can be constructed because we can take the square root of the eigenvalues from the previous diagonalization to find the singular values. The non-zero eigenvalues of $AA^T$ and $A^TA$ are the same, so the entries in $S$ will also be the same. To connect all the pieces, we have an orthonormal set of right singular vectors in the matrix $V$, together with the singular values in the matrix $S$. But to connect the orthonormal vectors in $U$, we still need normalisation based on the projection of the right singular vectors:
+The matrix $S$ can be constructed because we can take the square root of the eigenvalues from the previous diagonalization to find the singular values. The non-zero eigenvalues of $AA^T$ and $A^TA$ are the same, so the entries in $S$ will also be the same.
+
+To connect all the pieces, we have an orthonormal set of right singular vectors in the matrix $V$, the singular values in the matrix $S$, and an orthonormal set of left singular vectors in $U$. There is still a problem because these eigenvectors are not unique. If we first calculate $V$, normalisation is needed for $U$ based on the vectors in $V$. This happens with the following calculations:
 $$\vec{u_i} := \frac{A \vec{v_i}}{||A \vec{v_i}||} = \frac{1}{\sqrt{\theta_i}} A \vec{v_i} = \frac{1}{\sigma_i} A \vec{v_i}$$
 This can be rearranged to find the formula:
 $$A \vec{v_i} = \sigma_i u_i \quad \text{or} \quad AV = US$$
-This results in the final SVD equation:
+What results in the final SVD equation:
 $$A = USV^T$$

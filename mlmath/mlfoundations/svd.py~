@@ -1,0 +1,40 @@
+import sys
+import numpy as np
+
+class SVD():
+    def transform(self, A):
+        # Step 1: compute the right singular vectors
+        B = A.T @ A
+
+        eigenvalues, eigenvectors = np.linalg.eig(B)
+        
+        # Sort all the eigenvalues and eigenvectors
+        idx = eigenvalues.argsort()[::-1]
+        eigenvalues = eigenvalues[idx]
+        V = eigenvectors[:, idx]
+
+        # Remove the eigenvalues which are 0 or almost 0
+        idx = np.argwhere(eigenvalues < 1e-08).flatten()[0]
+        eigenvalues = np.delete(eigenvalues, idx)
+        eigenvectors = np.delete(V, idx, axis=1)
+
+        print(eigenvalues)
+        print(eigenvectors)
+
+        # Step 2: calculate the singular value matrix
+        # Same size as the original matrix
+        n, m = np.shape(A)
+        S = np.zeros((n, m))
+
+        # The singular values are the square roots of the eigenvalues
+        for i in range(len(eigenvalues)):
+            S[i][i] = np.sqrt(eigenvalues[i])
+
+        # Step 3: compute the left singular vectors
+        #print(A @ eigenvectors)
+
+
+A = np.array([[1, 0, 1],
+              [-2, 1, 0]])
+
+print(SVD().transform(A))

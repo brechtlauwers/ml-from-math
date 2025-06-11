@@ -1,6 +1,7 @@
 # Custom
 ltximg/
 *.org~
+*~
 *.tex
 
 # Byte-compiled / optimized / DLL files

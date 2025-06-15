@@ -4,12 +4,12 @@
 #+LANGUAGE: nl/en
 #+OPTIONS: toc:nil num:nil H:4
 
-* Purpose
+** Purpose
 This repository demonstrates fundamental machine learning algorithms implemented from scratch using only basic mathematical packages such as NumPy.
 
 It is *not* meant to compete with production ML frameworks, but rather to demonstrate how those algorithms work at a mathematical level with a focus on the clarity instead of efficiency.
 
-* Repository Structure
+** Repository Structure
 #+BEGIN_SRC text
 ml-from-math/
 ├── mlmath/
@@ -24,20 +24,17 @@ ml-from-math/
 └── README.org
 #+END_SRC text
 
-* Implemented Models
+** Implemented Models
 | Model                 | File                   | Description                  |
 |-----------------------+------------------------+------------------------------|
 | SVD                   | =mlfoundations/svd.py= | Singular Value Decomposition |
 | *More coming soon...* |                        |                              |
 
-* Getting Started
-** Prerequisites
+** Getting Started
+*** Prerequisites
 - Python 3.13+
 
-** Automatically installed
-- NumPy 2.3+
-
-** Installation
+*** Installation
 #+BEGIN_SRC bash
   git clone https://github.com/brechtlauwers/ml-from-math.git
   cd ml-from-math/mlmath
@@ -45,12 +42,15 @@ ml-from-math/
   pip install -e .
 #+END_SRC
 
-** Running examples
+*** Automatically installed
+- NumPy 2.3+
+
+*** Running examples
 #+begin_src bash
   python examples/svd.py
 #+end_src
 
-* Documentation
+** Documentation
 For each model you will find:
 1. Implementation file in corresponding category (=mlmath/supervised=, =mlmath/mlfoundations=, ...)
 2. Example script (=mlmath/examples=)

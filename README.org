@@ -1,2 +1,62 @@
-* Machine Learning from Math
+#+TITLE: Machine Learning from Math
+#+SUBTITLE: Mathematical implementations of ML algorithms
+#+AUTHOR: Brecht Lauwers
+#+LANGUAGE: nl/en
+#+OPTIONS: toc:nil num:nil H:4
 
+* Purpose
+This repository demonstrates fundamental machine learning algorithms implemented from scratch using only basic mathematical packages such as NumPy.
+
+It is *not* meant to compete with production ML frameworks, but rather to demonstrate how those algorithms work at a mathematical level with a focus on the clarity instead of efficiency.
+
+* Repository Structure
+#+BEGIN_SRC text
+ml-from-math/
+├── mlmath/
+│   └── examples/           # Example usage of the algorithms
+│       └── svd.py
+│   └── mlfoundations/      # Core ML/math implementations
+│       └── svd.py
+│   └── supervised/         # Supervised learning algorithms
+│   └── unsupervised/       # Unsupervised learning algorithms
+│   └── setup.py            # Installation config
+├── math_derivations.pdf    # All the mathematical derivations for models
+└── README.org
+#+END_SRC text
+
+* Implemented Models
+| Model                 | File                   | Description                  |
+|-----------------------+------------------------+------------------------------|
+| SVD                   | =mlfoundations/svd.py= | Singular Value Decomposition |
+| *More coming soon...* |                        |                              |
+
+* Getting Started
+** Prerequisites
+- Python 3.13+
+
+** Automatically installed
+- NumPy 2.3+
+
+** Installation
+#+BEGIN_SRC bash
+  git clone https://github.com/brechtlauwers/ml-from-math.git
+  cd ml-from-math/mlmath
+  # Best practice to create a new virtual environment before pip install
+  pip install -e .
+#+END_SRC
+
+** Running examples
+#+begin_src bash
+  python examples/svd.py
+#+end_src
+
+* Documentation
+For each model you will find:
+1. Implementation file in corresponding category (=mlmath/supervised=, =mlmath/mlfoundations=, ...)
+2. Example script (=mlmath/examples=)
+3. Mathematical derivation (=math_derivations.pdf=)
+
+
+#+BEGIN_QUOTE
+"Ideas are easy. Implementation is hard." - Guy Kawasaki
+#+END_QUOTE

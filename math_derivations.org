@@ -1,5 +1,6 @@
-* Mathematical Derivations
+* Machine Learning Foundations
 ** SVD
+*** Explanation
 The singular value decomposition (SVD) is a matrix decomposition method which decomposes a matrix $A$ into three specific matrices. The matrix $A$ could contain complex numbers, but I will focus on the real numbers because the decomposition is used for machine learning.
 
 Let $A \in \mathbb{R}^{m \times n}$, then there exists a decomposition $A = USV^T$ containing the following matrices:
@@ -46,3 +47,12 @@ This can be rearranged to find the formula:
 $$A \vec{v_i} = \sigma_i u_i \quad \text{or} \quad AV = US$$
 What results in the final SVD equation:
 $$A = USV^T$$
+
+*** Implementation details
+The ~transform~ function takes a matrix $A$ as input. This could be a matrix with any possible shape $m \times n$. The implementation first checks the shape of $A$ for computational efficiency:
+- When $m \geq n$, calculate $B := A^T A$.
+- When $m < n$, calculate $B := AA^T$.
+This way, we always work with the smallest matrix product to save computation time. To calculate the first singular vectors, we calculate the eigenvalue decomposition with the ~eigh~ function because it is specialized for symmetric/Hermitian matrices (which $B$ always is). This is more numerically stable than the general ~eig~ solver. In theory, these eigenvalues only contain values $\geq 0$, but because of floating point arithmetic, small negative values could appear. These are rounded to zero if they occur. A similar problem arises with the singular values because some of them might be very small, resulting in near-zero division. A threshold is set to filter out that numerical noise. The singular values are calculated simply by taking the square root of the eigenvalues of $B$.
+
+To compute the other singular vectors (depending on which case we are in), we use the formula $U = A V \frac{1}{\sigma}$ or $V = A^T U \frac{1}{\sigma}$, with $\frac{1}{\sigma}$ a diagonal matrix containing the normalized singular values. The function returns the three matrices $U$, $S$ and $V^T$ as final result.
+

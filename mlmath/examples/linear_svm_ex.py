@@ -2,31 +2,23 @@ import numpy as np
 from matplotlib import pyplot as plt
 import random
 from supervised.svm import SVM
+from data.datasets import make_linear
 
 
 def main():
     # Amount of datapoints and dimensions
-    N = 20
+    N = 40
     d = 2
 
     # Keep the data in a certain range
     low_limit, up_limit = -5, 5
 
-    # Generate different datapoints
-    x1_n, x2_n = np.random.uniform(low_limit, up_limit, (d, N))
-    X = np.array(list(zip(x1_n, x2_n)))
-
-    # Generate 2 variables for the function f(x) = ax + b
-    a = np.random.uniform(low_limit, up_limit)
-    b = np.random.uniform(low_limit, up_limit)
-
-    # Add fitting label to the datapoints
-    y_n = np.sign(x2_n - x1_n*a - b)
-    y = np.array(y_n)
+    # Generate the linear data
+    X, y = make_linear(N, d, (low_limit, up_limit), noise_ratio=0)
 
     # Plot positive and negative points
-    plt.plot(x1_n[y_n > 0], x2_n[y_n > 0], "+", c='r', markersize=10)
-    plt.plot(x1_n[y_n < 0], x2_n[y_n < 0], "_", c='b', markersize=10)
+    plt.plot(X[y > 0, 0], X[y > 0, 1], "+", c='r', markersize=10)
+    plt.plot(X[y < 0, 0], X[y < 0, 1], "_", c='b', markersize=10)
 
     # Set the limits for the plot
     plt.xlim(low_limit, up_limit)

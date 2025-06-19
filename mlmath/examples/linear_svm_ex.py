@@ -6,8 +6,9 @@ from data.datasets import make_linear
 
 
 def main():
+    # Example 1, Hard margin SVM with perfectly separable data
     # Amount of datapoints and dimensions
-    N = 40
+    N = 50
     d = 2
 
     # Keep the data in a certain range
@@ -50,6 +51,13 @@ def main():
 
     plt.savefig("svm_linear_decision_boundary.png")
     plt.clf()
+
+
+    # Example 2, Soft margin SVM
+    # Add some noise to the data
+    X, y = make_linear(N, d, (low_limit, up_limit), noise_ratio=0.2)
+
+    
 
 
 if __name__ == "__main__":

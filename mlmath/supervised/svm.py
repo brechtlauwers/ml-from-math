@@ -1,21 +1,25 @@
 import numpy as np
 from cvxopt import matrix, solvers
+from mlfoundations.kernels import linear_kernel, polynomial_kernel
+
 
 class SVM():
-    def __init__(self, C=0, kernel='linear'):
+    def __init__(self, C=0, kernel='linear', degree=3, gamma=None):
         self.C = C
-        self.kernel = kernel
 
-        self.coef_ = []
-        self.intercept_ = 0
-        self.support_vectors_ = []
+        if kernel == 'linear':
+            self.kernel = linear_kernel
+        elif kernel == 'poly':
+            self.kernel = lambda x_n, x_m: polynomial_kernel(x_n, x_m, degree, gamma)
 
-    def linear_kernel(self, x_n, x_m):
-        return x_n @ x_m.T
+        # Extra parameters
+        self.coef_ = None
+        self.intercept_ = None
+        self.support_vectors_ = None
 
     def fit(self, X, y):
         # Full kernel matrix
-        K = self.linear_kernel(X, X)
+        K = linear_kernel(X, X)
 
         N = X.shape[0]
 
@@ -43,7 +47,7 @@ class SVM():
         total_b = []
         for x_s, y_s in zip(self.sv, self.sv_y):
             y_alphas = (self.alphas * self.sv_y).T
-            b_s = y_s - y_alphas @ self.linear_kernel(self.sv, x_s.reshape(1, -1))
+            b_s = y_s - y_alphas @ linear_kernel(self.sv, x_s.reshape(1, -1))
             total_b.append(np.ravel(b_s)[0])
 
         self.b = np.mean(total_b)
@@ -54,14 +58,11 @@ class SVM():
         self.support_vectors_ = self.sv
 
     def predict(self, X_test):
-        K_test = self.linear_kernel(self.sv, X_test)
+        K_test = linear_kernel(self.sv, X_test)
         decision_value = (self.alphas * self.sv_y).T @ K_test + self.b
         return np.sign(decision_value).flatten()
 
     def predict_decision_values(self, X_test):
-        K_test = self.linear_kernel(self.sv, X_test)
+        K_test = linear_kernel(self.sv, X_test)
         decision_value = (self.alphas * self.sv_y).T @ K_test + self.b
         return decision_value.flatten()
-
-
-

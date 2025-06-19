@@ -2,6 +2,7 @@ import numpy as np
 from cvxopt import matrix, solvers
 from mlfoundations.kernels import linear_kernel, polynomial_kernel
 
+solvers.options['show_progress'] = False
 
 class SVM():
     def __init__(self, C=0, kernel='linear', degree=3, gamma=None):

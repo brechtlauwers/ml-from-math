@@ -8,7 +8,7 @@ from data.datasets import make_linear
 def main():
     # Example 1, Hard margin SVM with perfectly separable data
     # Amount of datapoints and dimensions
-    N = 50
+    N = 40
     d = 2
 
     # Keep the data in a certain range
